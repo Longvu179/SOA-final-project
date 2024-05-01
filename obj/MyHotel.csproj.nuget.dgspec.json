@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\HK-VI 2023 - 2024\\KTHDV\\Cuoi ky\\MyHotel\\MyHotel.csproj": {}
+    "E:\\SOA\\SOA-final-project\\MyHotel.csproj": {}
   },
   "projects": {
-    "D:\\HK-VI 2023 - 2024\\KTHDV\\Cuoi ky\\MyHotel\\MyHotel.csproj": {
+    "E:\\SOA\\SOA-final-project\\MyHotel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\HK-VI 2023 - 2024\\KTHDV\\Cuoi ky\\MyHotel\\MyHotel.csproj",
+        "projectUniqueName": "E:\\SOA\\SOA-final-project\\MyHotel.csproj",
         "projectName": "MyHotel",
-        "projectPath": "D:\\HK-VI 2023 - 2024\\KTHDV\\Cuoi ky\\MyHotel\\MyHotel.csproj",
-        "packagesPath": "C:\\Users\\vltie\\.nuget\\packages\\",
-        "outputPath": "D:\\HK-VI 2023 - 2024\\KTHDV\\Cuoi ky\\MyHotel\\obj\\",
+        "projectPath": "E:\\SOA\\SOA-final-project\\MyHotel.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "E:\\SOA\\SOA-final-project\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\vltie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

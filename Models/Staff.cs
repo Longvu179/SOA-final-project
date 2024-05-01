@@ -6,7 +6,7 @@ namespace MyHotel.Models
     public class Staff
     {
         [Key]
-        public string StaffId { get; set; }
+        public int StaffId { get; set; }
         public string FullName { get; set; }
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }

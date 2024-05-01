@@ -49,7 +49,7 @@ namespace MyHotel.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoom(string id, Room room)
+        public async Task<IActionResult> PutRoom(int id, Room room)
         {
             if (id != room.RoomId)
             {
@@ -124,7 +124,7 @@ namespace MyHotel.Controllers
             return NoContent();
         }
 
-        private bool RoomExists(string id)
+        private bool RoomExists(int id)
         {
             return (_context.Rooms?.Any(e => e.RoomId == id)).GetValueOrDefault();
         }

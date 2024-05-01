@@ -6,7 +6,7 @@ namespace MyHotel.Models
     public class Customer
     {
         [Key]
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public string IdCard {  get; set; }
         public string FullName { get; set; }
         public string Gender { get; set; }

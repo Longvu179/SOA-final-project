@@ -63,10 +63,8 @@ namespace MyHotel.Controllers
 
             var account = new Account
             {
-                username = staff.StaffId,
-                password = staff.StaffId,
+                password = "123",
                 email = staff.Email,
-                role = staff.Position
             };
 
             _context.Accounts.Add(account);
@@ -93,7 +91,7 @@ namespace MyHotel.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStaff(string id, Staff staff)
+        public async Task<IActionResult> PutStaff(int id, Staff staff)
         {
             if (id != staff.StaffId)
             {
@@ -140,7 +138,7 @@ namespace MyHotel.Controllers
             return NoContent();
         }
 
-        private bool StaffExists(string id)
+        private bool StaffExists(int id)
         {
             return (_context.Staffs?.Any(e => e.StaffId == id)).GetValueOrDefault();
         }

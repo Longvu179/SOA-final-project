@@ -49,7 +49,7 @@ namespace MyHotel.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(string id, Customer customer)
+        public async Task<IActionResult> PutCustomer(int id, Customer customer)
         {
             if (id != customer.CustomerId)
             {
@@ -104,7 +104,7 @@ namespace MyHotel.Controllers
             return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
         }
 
-        private bool CustomerExists(string id)
+        private bool CustomerExists(int id)
         {
             return (_context.Customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();
         }

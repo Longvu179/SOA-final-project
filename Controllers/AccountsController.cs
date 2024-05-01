@@ -21,21 +21,19 @@ namespace MyHotel.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAllAccount()
-        {
-            return await _context.Accounts.ToListAsync();
-        }
-
         [HttpPost("login")]
         public async Task<ActionResult> Login(LoginModel model)
         {
-            var account = await _context.Accounts.SingleOrDefaultAsync(a => a.username == model.username);
+            var account = await _context.Accounts.SingleOrDefaultAsync(a => a.email == model.email);
 
             if (account != null && account.password == model.password)
             {
-                var token = GenerateJwtToken(account);
-                return Ok(token);
+                var staff = await _context.Staffs.FindAsync(account.StaffId);
+                if (staff != null)
+                {
+                    return BadRequest("Cannot find this staff");
+                }
+                return Ok(staff);
             }
             else
             {
@@ -43,7 +41,7 @@ namespace MyHotel.Controllers
             }
         }
 
-        private string GenerateJwtToken(Account account)
+        /*private string GenerateJwtToken(Account account)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes("my_hotel_secret_key");
@@ -51,14 +49,14 @@ namespace MyHotel.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-            new Claim(ClaimTypes.Name, account.username),
-            new Claim(ClaimTypes.Role, account.role)
+                    new Claim(ClaimTypes.Name, account.username),
+                    new Claim(ClaimTypes.Role, account.role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
-        }
+        }*/
     }
 }
