@@ -89,36 +89,6 @@ namespace MyHotel.Controllers
             return CreatedAtAction("GetStaff", new { id = staff.StaffId }, staff);
         }
 
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutStaff(int id, Staff staff)
-        {
-            if (id != staff.StaffId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(staff).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StaffExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStaff(string id)
         {

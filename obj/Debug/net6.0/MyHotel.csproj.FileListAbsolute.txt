@@ -543,3 +543,9 @@ E:\SOA\SOA-final-project\obj\Debug\net6.0\refint\MyHotel.dll
 E:\SOA\SOA-final-project\obj\Debug\net6.0\MyHotel.pdb
 E:\SOA\SOA-final-project\obj\Debug\net6.0\MyHotel.genruntimeconfig.cache
 E:\SOA\SOA-final-project\obj\Debug\net6.0\ref\MyHotel.dll
+E:\SOA\SOA-final-project\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+E:\SOA\SOA-final-project\bin\Debug\net6.0\MailKit.dll
+E:\SOA\SOA-final-project\bin\Debug\net6.0\MimeKit.dll
+E:\SOA\SOA-final-project\bin\Debug\net6.0\System.Formats.Asn1.dll
+E:\SOA\SOA-final-project\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
+E:\SOA\SOA-final-project\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll

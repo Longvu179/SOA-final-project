@@ -14,19 +14,19 @@ namespace MyHotel
         {
             base.OnModelCreating(builder);
             builder.Entity<Staff>().HasData(
-                new Staff { StaffId = 1, FullName = "Trung Kien", PhoneNumber = "3134567890", Email = "kien@example.com", DOB = DateTime.Parse("2003-12-03"), Address = "123 Main St, Anytown", Gender = "male", Position = "manager", Salary = 50000 },
-                new Staff { StaffId = 2, FullName = "Long Vu", PhoneNumber = "4123567890", Email = "long@example.com", DOB = DateTime.Parse("2003-02-02"), Address = "123 Main St, Anytown", Gender = "male", Position = "manager", Salary = 50000 },
-                new Staff { StaffId = 3, FullName = "Anh Kiet", PhoneNumber = "5123467890", Email = "kiet@example.com", DOB = DateTime.Parse("2003-03-04"), Address = "123 Main St, Anytown", Gender = "male", Position = "manager", Salary = 50000 },
-                new Staff { StaffId = 4, FullName = "Jane Smith", PhoneNumber = "9876543210", Email = "jane.smith@example.com", DOB = DateTime.Parse("1985-05-15"), Address = "456 Elm St, Springfield", Gender = "female", Position = "receptionist", Salary = 45000 },
-                new Staff { StaffId = 5, FullName = "Michael Johnson", PhoneNumber = "5551234567", Email = "jane.smith@example.com", DOB = DateTime.Parse("1983-09-22"), Address = "789 Oak St, Metro City", Gender = "male", Position = "receptionist", Salary = 40000 }
+                new Staff { StaffId = 1, FullName = "Trung Kien", PhoneNumber = "3134567890", Email = "kien@gmail.com", DOB = DateTime.Parse("2003-12-03"), Address = "123 Main St, Anytown", Gender = "male", Position = "manager", Salary = 50000 },
+                new Staff { StaffId = 2, FullName = "Long Vu", PhoneNumber = "4123567890", Email = "long@gmail.com", DOB = DateTime.Parse("2003-02-02"), Address = "123 Main St, Anytown", Gender = "male", Position = "manager", Salary = 50000 },
+                new Staff { StaffId = 3, FullName = "Anh Kiet", PhoneNumber = "5123467890", Email = "kiet@gmail.com", DOB = DateTime.Parse("2003-03-04"), Address = "123 Main St, Anytown", Gender = "male", Position = "manager", Salary = 50000 },
+                new Staff { StaffId = 4, FullName = "Jane Smith", PhoneNumber = "9876543210", Email = "jane.smith@gmail.com", DOB = DateTime.Parse("1985-05-15"), Address = "456 Elm St, Springfield", Gender = "female", Position = "receptionist", Salary = 45000 },
+                new Staff { StaffId = 5, FullName = "Michael Johnson", PhoneNumber = "5551234567", Email = "jane.smith@gmail.com", DOB = DateTime.Parse("1983-09-22"), Address = "789 Oak St, Metro City", Gender = "male", Position = "receptionist", Salary = 40000 }
             );
 
             builder.Entity<Account>().HasData(
-                new Account { Id = 1, email = "kien@example.com", password = "kien123", StaffId = 1},
-                new Account { Id = 2, email = "long@example.com", password = "long123", StaffId = 2 },
-                new Account { Id = 3, email = "kiet@example.com", password = "kiet123" , StaffId = 3 },
-                new Account { Id = 4, email = "jane.smith@example.com", password = "jane123" , StaffId = 4 },
-                new Account { Id = 5, email = "jane.smith@example.com", password = "john123" , StaffId = 5 }
+                new Account { Id = 1, email = "kien@gmail.com", password = "kien123", StaffId = 1},
+                new Account { Id = 2, email = "long@gmail.com", password = "long123", StaffId = 2 },
+                new Account { Id = 3, email = "kiet@gmail.com", password = "kiet123" , StaffId = 3 },
+                new Account { Id = 4, email = "jane.smith@gmail.com", password = "jane123" , StaffId = 4 },
+                new Account { Id = 5, email = "jane.smith@gmail.com", password = "john123" , StaffId = 5 }
             );
 
             builder.Entity<Customer>().HasData(
