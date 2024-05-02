@@ -56,6 +56,10 @@ namespace MyHotel.Controllers
         [HttpPost("create")]
         public async Task<ActionResult> Create(AccountCreateModel model)
         {
+            if (model.Name == null & model.Gender == null)
+            {
+                return BadRequest();
+            }
             var account = await _context.Accounts.SingleOrDefaultAsync(a => a.email == model.Email);
             if(account != null)
             {

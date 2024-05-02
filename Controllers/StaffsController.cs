@@ -37,7 +37,7 @@ namespace MyHotel.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Staff>> GetStaff(string id)
+        public async Task<ActionResult<Staff>> GetStaff(int id)
         {
           if (_context.Staffs == null)
           {
@@ -53,44 +53,9 @@ namespace MyHotel.Controllers
             return staff;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Staff>> AddStaff(Staff staff)
-        {
-            if (_context.Staffs == null)
-            {
-                return Problem("Entity set 'MyHotelDbContext.Staffs' is null.");
-            }
-
-            var account = new Account
-            {
-                password = "123",
-                email = staff.Email,
-            };
-
-            _context.Accounts.Add(account);
-            _context.Staffs.Add(staff);
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (StaffExists(staff.StaffId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetStaff", new { id = staff.StaffId }, staff);
-        }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStaff(string id)
+        public async Task<IActionResult> DeleteStaff(int id)
         {
             if (_context.Staffs == null)
             {
@@ -101,16 +66,16 @@ namespace MyHotel.Controllers
             {
                 return NotFound();
             }
-
+            var account = await _context.Accounts.SingleOrDefaultAsync(a => a.StaffId == id);
+            if (account == null)
+            {
+                return NotFound();
+            }
+            _context.Accounts.Remove(account);
             _context.Staffs.Remove(staff);
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool StaffExists(int id)
-        {
-            return (_context.Staffs?.Any(e => e.StaffId == id)).GetValueOrDefault();
         }
     }
 }
