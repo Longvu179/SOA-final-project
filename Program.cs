@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyHotel;
+using MyHotel.Email_Sender;
+using MyHotel.Email_Sender.Email_Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +9,8 @@ var connectionString = builder.Configuration.GetConnectionString("MyHotelDbConte
 
 builder.Services.AddDbContext<MyHotelDbContext>(options =>
     options.UseSqlServer(connectionString));
-
+builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration"));
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
