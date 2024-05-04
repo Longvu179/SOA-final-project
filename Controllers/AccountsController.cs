@@ -75,7 +75,8 @@ namespace MyHotel.Controllers
                 FullName = model.Name,
                 Email = model.Email,
                 Gender = model.Gender,
-                Position = "receptionist"
+                PhoneNumber = model.PhoneNumber,
+                Position = model.Position
             };
             _context.Staffs.Add(newStaff);
             await _context.SaveChangesAsync();
