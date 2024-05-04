@@ -9,7 +9,8 @@ namespace MyHotel.Models
         public int InvoiceId { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
-        public double TotalMoney { get; set; }
-        public string StaffId { get; set; }
+        public DateTime CreateDate { get; set; }
+        public double? TotalMoney { get; set; }
+        public int StaffId { get; set; }
     }
 }

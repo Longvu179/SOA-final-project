@@ -78,6 +78,7 @@ namespace MyHotel
         public DbSet<DetailBookingsRoom> DetailBookingsRooms { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<TempRoom> TempRooms { get; set; }
         public DbSet<Service> Services { get; set; }
     }
 }
