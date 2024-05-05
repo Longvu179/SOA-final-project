@@ -80,5 +80,6 @@ namespace MyHotel
         public DbSet<Room> Rooms { get; set; }
         public DbSet<TempRoom> TempRooms { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<TempService> TempServices { get; set; }
     }
 }
