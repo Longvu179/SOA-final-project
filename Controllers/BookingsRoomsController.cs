@@ -78,7 +78,7 @@ namespace MyHotel.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BookingsRoom>> PostBookingsRoom(BookingsRoom bookingsRoom, DetailBookingsRoom detailBookingsRoom)
+        public async Task<ActionResult<BookingsRoom>> PostBookingsRoom(BookingsRoom bookingsRoom)
         {
           if (_context.BookingsRooms == null)
           {

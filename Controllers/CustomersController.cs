@@ -48,33 +48,22 @@ namespace MyHotel.Controllers
             return customer;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(string id, Customer customer)
+        [HttpGet("phone-number/{phoneNumber}")]
+        public async Task<ActionResult<Customer>> GetCustomerByPhoneNumber(string phoneNumber)
         {
-            if (id != customer.CustomerId)
+            if (_context.Customers == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.PhoneNumber == phoneNumber);
 
-            try
+            if (customer == null)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CustomerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
-            return Ok("Update customer information successfully");
+            return customer;
         }
 
         [HttpPost]
@@ -104,7 +93,7 @@ namespace MyHotel.Controllers
             return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
         }
 
-        private bool CustomerExists(string id)
+        private bool CustomerExists(int id)
         {
             return (_context.Customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();
         }

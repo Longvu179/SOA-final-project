@@ -30,6 +30,7 @@ namespace MyHotel.Controllers
           }
             return await _context.Services.ToListAsync();
         }
+        
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Service>> GetService(string id)
@@ -49,7 +50,7 @@ namespace MyHotel.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutService(string id, Service service)
+        public async Task<IActionResult> PutService(int id, Service service)
         {
             if (id != service.ServiceId)
             {
@@ -123,7 +124,7 @@ namespace MyHotel.Controllers
             return NoContent();
         }
 
-        private bool ServiceExists(string id)
+        private bool ServiceExists(int id)
         {
             return (_context.Services?.Any(e => e.ServiceId == id)).GetValueOrDefault();
         }
