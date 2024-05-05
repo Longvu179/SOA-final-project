@@ -22,26 +22,28 @@ namespace MyHotel.Controllers
             _context = context;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
-        //{
-        //  if (_context.Rooms == null)
-        //  {
-        //      return NotFound();
-        //  }
-        //    return await _context.Rooms.ToListAsync();
-        //}
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RoomViewModel>>> GetRooms([FromForm] DateTime checkDate)
+        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
         {
+          if (_context.Rooms == null)
+          {
+              return NotFound();
+          }
+            return await _context.Rooms.ToListAsync();
+        }
+
+        [HttpGet("booked-room")]
+        public async Task<ActionResult<IEnumerable<RoomViewModel>>> GetRooms(string checkDate)
+        {
+            var dateString = DateTimeOffset.Parse(checkDate).UtcDateTime;
             var listRoom = new List<RoomViewModel>();
             if (_context.Rooms == null)
             {
                 return NotFound();
             }
-            var rooms = await _context.Rooms.ToListAsync();
+              var rooms = await _context.Rooms.ToListAsync();
             var bookingrooms = await _context.DetailBookingsRooms.Where(b =>
-                    checkDate >= b.CheckInDate && checkDate < b.CheckOutDate).ToListAsync();
+                    dateString >= b.CheckInDate && dateString < b.CheckOutDate).ToListAsync();
 
             foreach (var room in rooms)
             {

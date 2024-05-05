@@ -12,7 +12,7 @@ using MyHotel;
 namespace MyHotel.Migrations
 {
     [DbContext(typeof(MyHotelDbContext))]
-    [Migration("20240505012311_initdb")]
+    [Migration("20240505075417_initdb")]
     partial class initdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
