@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "R+iZS+YLi8/kDuRRMGfJ8AJcofVli8loRmc1z507q7ru6pnydo3H4TFH7ODqCnCTUfcneg/60y6VtD0ZniUejw==",
+  "dgSpecHash": "O/SyZIGDV49EnAjDMbUYTVTK0HijYUirvNeihrw0JWWXY8w0jzw9Nkr4/QnAVsMKS8IXsuJlCevu4vdByVJ+Qg==",
   "success": true,
-  "projectFilePath": "D:\\HK-VI 2023 - 2024\\KTHDV\\Cuoi ky\\Kien Branch\\backend\\SOA-final-project\\MyHotel.csproj",
+  "projectFilePath": "D:\\HK-VI 2023 - 2024\\KTHDV\\Cuoi ky\\Kien Branch\\SOA-final-project\\MyHotel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vltie\\.nuget\\packages\\bouncycastle.cryptography\\2.3.0\\bouncycastle.cryptography.2.3.0.nupkg.sha512",
     "C:\\Users\\vltie\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",

@@ -12,8 +12,8 @@ using MyHotel;
 namespace MyHotel.Migrations
 {
     [DbContext(typeof(MyHotelDbContext))]
-    [Migration("20240502024323_initDb")]
-    partial class initDb
+    [Migration("20240505071303_newDb")]
+    partial class newDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -128,14 +128,16 @@ namespace MyHotel.Migrations
                     b.Property<DateTime>("CheckOutDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("InvoiceId")
                         .HasColumnType("int");
 
-                    b.Property<string>("StaffId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
 
-                    b.Property<double>("TotalMoney")
+                    b.Property<double?>("TotalMoney")
                         .HasColumnType("float");
 
                     b.HasKey("BookingRoomId");
@@ -152,34 +154,27 @@ namespace MyHotel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DOB")
+                    b.Property<DateTime?>("DOB")
                         .HasColumnType("Date");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IdCard")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CustomerId");
@@ -330,9 +325,8 @@ namespace MyHotel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ServiceId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
 
                     b.Property<double>("TotalMoney")
                         .HasColumnType("float");
@@ -359,13 +353,14 @@ namespace MyHotel.Migrations
                     b.Property<DateTime>("CheckOutDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("CreateDay")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoomId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
 
                     b.Property<double>("TotalMoney")
                         .HasColumnType("float");
@@ -383,30 +378,29 @@ namespace MyHotel.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceId"), 1L, 1);
 
-                    b.Property<DateTime>("CheckInDate")
+                    b.Property<DateTime?>("CheckInDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CheckOutDate")
+                    b.Property<DateTime?>("CheckOutDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<double>("Moneys")
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("Moneys")
                         .HasColumnType("float");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Payments")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StaffId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
 
                     b.HasKey("InvoiceId");
 
@@ -613,10 +607,9 @@ namespace MyHotel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DOB")
+                    b.Property<DateTime?>("DOB")
                         .HasColumnType("Date");
 
                     b.Property<string>("Email")
@@ -624,19 +617,15 @@ namespace MyHotel.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Salary")
@@ -707,6 +696,40 @@ namespace MyHotel.Migrations
                             Position = "receptionist",
                             Salary = 40000.0
                         });
+                });
+
+            modelBuilder.Entity("MyHotel.Models.TempRoom", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CheckInDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CheckOutDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TempRooms");
                 });
 #pragma warning restore 612, 618
         }
