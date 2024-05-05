@@ -111,7 +111,7 @@ namespace MyHotel.Controllers
         }
 
         [HttpPost("service/{id}")]
-        public async Task<ActionResult> AddService(int id, [FromForm] string name, double price)
+        public async Task<ActionResult> AddService(int id, [FromBody] TempServiceInputModel model)
         {
             var had = await _context.TempServices.FirstOrDefaultAsync(t => t.ServiceId == id);
 
@@ -119,8 +119,8 @@ namespace MyHotel.Controllers
             {
                 TempService tempService = new();
                 tempService.ServiceId = id;
-                tempService.Name = name;
-                tempService.Price = price;
+                tempService.Name = model.name;
+                tempService.Price = model.price;
                 tempService.Amount = 1;
                 _context.TempServices.Add(tempService);
             }
@@ -168,7 +168,7 @@ namespace MyHotel.Controllers
         }
 
         [HttpPost("detail-room-booking/{DBR_id}")]
-        public async Task<ActionResult<BookingService>> PostBookingService(int DBR_id)
+        public async Task<ActionResult<BookingService>> PostBookingService(int DBR_id, int StaffId)
         {
             if (_context.BookingServices == null)
             {
@@ -179,7 +179,7 @@ namespace MyHotel.Controllers
             bookingService.DBR_Id = DBR_id;
             bookingService.CreateDate = DateTime.Now;
             bookingService.TotalMoney = 0;
-            bookingService.StaffId = 2;
+            bookingService.StaffId = StaffId;
 
             _context.BookingServices.Add(bookingService);
             await _context.SaveChangesAsync();
