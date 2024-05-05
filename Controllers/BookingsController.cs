@@ -19,7 +19,7 @@ namespace MyHotel.Controllers
         [HttpGet("room")]
         public async Task<ActionResult<IEnumerable<TempRoom>>> GetRooms()
         {
-            if (_context.Rooms == null)
+            if (_context.TempRooms == null)
             {
                 return NotFound();
             }
