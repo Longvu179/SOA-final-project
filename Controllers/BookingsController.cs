@@ -135,6 +135,7 @@ namespace MyHotel.Controllers
             Invoice invoice = new Invoice();
             invoice.CreateDate = DateTime.Now;
             invoice.CustomerId = customerId;
+            invoice.Moneys = 0;
             invoice.StaffId = bookingRequest.StaffId;
 
             var createInvoice = await CreateInvoice(invoice);
@@ -145,6 +146,7 @@ namespace MyHotel.Controllers
                 BookingsRoom bookingRoom = new BookingsRoom();
                 bookingRoom.CreateDate = DateTime.Now;
                 bookingRoom.InvoiceId = tempInvoice.InvoiceId;
+                bookingRoom.TotalMoney = 0;
                 bookingRoom.StaffId = bookingRequest.StaffId;
 
                 var createBookingRoom = await CreateBookingsRoom(bookingRoom);
@@ -157,6 +159,7 @@ namespace MyHotel.Controllers
                         {
                             try
                             {
+                                double sum = 0;
                                 foreach (var room in _context.TempRooms)
                                 {
                                     var days = (room.CheckOutDate - room.CheckInDate).Days;
@@ -168,6 +171,7 @@ namespace MyHotel.Controllers
                                     detailBookingsRoom.CheckOutDate = room.CheckOutDate;
                                     detailBookingsRoom.CreateDay = DateTime.Now;
                                     detailBookingsRoom.TotalMoney = room.Price * days;
+                                    sum += detailBookingsRoom.TotalMoney;
 
                                     // Thực hiện công việc trong cùng một giao dịch
                                     await CreateDetailBookingsRoom(detailBookingsRoom);
@@ -175,6 +179,12 @@ namespace MyHotel.Controllers
 
                                 // Commit giao dịch
                                 await transaction.CommitAsync();
+
+                                tempBookingRoom.TotalMoney = sum;
+                                tempInvoice.Moneys = sum;
+                                _context.Entry(tempBookingRoom).State = EntityState.Modified;
+                                _context.Entry(tempInvoice).State = EntityState.Modified;
+                                await _context.SaveChangesAsync();
                                 DeleteAll();
                             }
                             catch (Exception)

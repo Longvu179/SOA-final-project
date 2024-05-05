@@ -30,6 +30,7 @@ namespace MyHotel.Controllers
           }
             return await _context.Services.ToListAsync();
         }
+        
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Service>> GetService(string id)

@@ -45,49 +45,27 @@ namespace MyHotel.Controllers
             var bookingrooms = await _context.DetailBookingsRooms.Where(b =>
                     dateString >= b.CheckInDate && dateString < b.CheckOutDate).ToListAsync();
 
-            foreach (var room in rooms)
-            {
-                foreach (var bookingroom in bookingrooms)
+            var roomViewModels = from room in rooms select new RoomViewModel
                 {
-                    if(room.RoomId == bookingroom.RoomId)
-                    {
-                        RoomViewModel newRoom = new();
-                        newRoom.DBR_Id = bookingroom.DBR_Id;
-                        newRoom.RoomId = room.RoomId;
-                        newRoom.Name = room.Name;
-                        newRoom.Type = room.Type;
+                    RoomId = room.RoomId,
+                    Name = room.Name,
+                    Type = room.Type,
+                    DBR_Id = (from bookingroom in bookingrooms
+                              where bookingroom.RoomId == room.RoomId
+                              select bookingroom.DBR_Id).FirstOrDefault(),
+                    IsBooking = bookingrooms.Any(b => b.RoomId == room.RoomId),
+                        CustomerName = (from bookingroom in bookingrooms
+                                        join booking in _context.BookingsRooms on bookingroom.BookingRoomId equals booking.BookingRoomId
+                                        join invoice in _context.Invoices on booking.InvoiceId equals invoice.InvoiceId
+                                        join customer in _context.Customers on invoice.CustomerId equals customer.CustomerId
+                                        where bookingroom.RoomId == room.RoomId
+                                        select customer.FullName).FirstOrDefault(),
+                        Days = (from bookingroom in bookingrooms
+                                where bookingroom.RoomId == room.RoomId
+                                select (bookingroom.CheckOutDate - bookingroom.CheckInDate).Days).FirstOrDefault()
+                };
 
-                        var booking = await _context.BookingsRooms.FindAsync(bookingroom.BookingRoomId);
-                        var invoice = await _context.Invoices.FindAsync(booking.InvoiceId);
-                        var customer = await _context.Customers.FindAsync(invoice.CustomerId);
-
-                        newRoom.CustomerName = customer.FullName;
-                        newRoom.IsBooking = true;
-                        newRoom.Days = (bookingroom.CheckOutDate - bookingroom.CheckInDate).Days;
-
-                        listRoom.Add(newRoom);
-                    }
-                    else
-                    {
-                        RoomViewModel newRoom = new();
-                        newRoom.RoomId = room.RoomId;
-                        newRoom.Name = room.Name;
-                        newRoom.Type = room.Type;
-                        newRoom.IsBooking = false;
-                        listRoom.Add(newRoom);
-                    }
-                }
-                if(bookingrooms.Count == 0)
-                {
-                    RoomViewModel newRoom = new();
-                    newRoom.RoomId = room.RoomId;
-                    newRoom.Name = room.Name;
-                    newRoom.Type = room.Type;
-                    newRoom.IsBooking = false;
-                    listRoom.Add(newRoom);
-                }
-            }
-            return Ok(listRoom);
+            return Ok(roomViewModels);
         }
 
         [HttpGet("{id}")]

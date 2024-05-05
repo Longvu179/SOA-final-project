@@ -30,11 +30,10 @@ namespace MyHotel.Migrations
                 {
                     BookingServiceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    InvoiceId = table.Column<int>(type: "int", nullable: false),
-                    CheckInDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CheckOutDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DBR_Id = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalMoney = table.Column<double>(type: "float", nullable: false),
-                    StaffId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    StaffId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,8 +87,8 @@ namespace MyHotel.Migrations
                     BookingServiceId = table.Column<int>(type: "int", nullable: false),
                     ServiceId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CheckInDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CheckOutDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalMoney = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
@@ -205,6 +204,22 @@ namespace MyHotel.Migrations
                     table.PrimaryKey("PK_TempRooms", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TempServices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TempServices", x => x.Id);
+                });
+
             migrationBuilder.InsertData(
                 table: "Accounts",
                 columns: new[] { "Id", "StaffId", "email", "password" },
@@ -315,6 +330,9 @@ namespace MyHotel.Migrations
 
             migrationBuilder.DropTable(
                 name: "TempRooms");
+
+            migrationBuilder.DropTable(
+                name: "TempServices");
         }
     }
 }
