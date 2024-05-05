@@ -48,15 +48,15 @@ namespace MyHotel.Controllers
             return customer;
         }
 
-        [HttpGet("phone-number/{phoneNumber}")]
-        public async Task<ActionResult<Customer>> GetCustomerByPhoneNumber(string phoneNumber)
+        [HttpGet("id-card/{idcard}")]
+        public async Task<ActionResult<Customer>> GetCustomerByPhoneNumber(string idcard)
         {
             if (_context.Customers == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.PhoneNumber == phoneNumber);
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.IdCard == idcard);
 
             if (customer == null)
             {

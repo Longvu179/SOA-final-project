@@ -2,6 +2,7 @@
 {
     public class BookingRequestDto
     {
+        public int StaffId { get; set; }
         public string IdCard { get; set; }
         public string FullName { get; set; }
         public string Gender { get; set; }
@@ -10,8 +11,6 @@
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Country { get; set; }
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
     }
 
 }

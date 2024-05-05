@@ -30,9 +30,14 @@ namespace MyHotel.Controllers
         public async Task<ActionResult> AddRoom(int id, [FromBody] CheckIn_OutDate check)
         {
             var room = await _context.Rooms.FindAsync(id);
+            var existedTempRoom = await _context.TempRooms.FirstOrDefaultAsync(t => t.RoomId == id);
+            if (existedTempRoom != null)
+            {
+                return Conflict("Room already booked");
+            }
             TempRoom tempRoom = new();
             if (room != null)
-            {
+            { 
 
                 tempRoom.RoomId = id;
                 tempRoom.Name = room.Name;
@@ -101,7 +106,7 @@ namespace MyHotel.Controllers
             return filteredRooms;
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<ActionResult> Booking([FromBody] BookingRequestDto bookingRequest)
         {
             var tempCustomer = await _context.Customers.FirstOrDefaultAsync(c => c.IdCard == bookingRequest.IdCard);
@@ -128,11 +133,9 @@ namespace MyHotel.Controllers
             }
 
             Invoice invoice = new Invoice();
-            invoice.CheckInDate = bookingRequest.CheckInDate;
-            invoice.CheckOutDate = bookingRequest.CheckOutDate;
             invoice.CreateDate = DateTime.Now;
             invoice.CustomerId = customerId;
-            invoice.StaffId = 2;
+            invoice.StaffId = bookingRequest.StaffId;
 
             var createInvoice = await CreateInvoice(invoice);
             if (createInvoice != null)
@@ -140,11 +143,9 @@ namespace MyHotel.Controllers
                 var tempInvoice = await _context.Invoices.FirstOrDefaultAsync(i => i.CreateDate == invoice.CreateDate);
 
                 BookingsRoom bookingRoom = new BookingsRoom();
-                bookingRoom.CheckInDate = bookingRequest.CheckInDate;
-                bookingRoom.CheckOutDate = bookingRequest.CheckOutDate;
                 bookingRoom.CreateDate = DateTime.Now;
                 bookingRoom.InvoiceId = tempInvoice.InvoiceId;
-                bookingRoom.StaffId = 2;
+                bookingRoom.StaffId = bookingRequest.StaffId;
 
                 var createBookingRoom = await CreateBookingsRoom(bookingRoom);
                 if (createBookingRoom != null)
