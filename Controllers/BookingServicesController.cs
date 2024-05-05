@@ -48,6 +48,15 @@ namespace MyHotel.Controllers
 
             return bookingService;
         }
+        [HttpGet("service")]
+        public async Task<ActionResult<IEnumerable<TempService>>> GetRooms()
+        {
+            if (_context.TempServices == null)
+            {
+                return NotFound();
+            }
+            return await _context.TempServices.ToListAsync();
+        }
         [HttpGet("service/{DBR_id}")]
         public async Task<ActionResult<IEnumerable<BookingService>>> GetAllBookingService(int DBR_id)
         {
