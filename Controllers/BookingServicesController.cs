@@ -58,27 +58,25 @@ namespace MyHotel.Controllers
             return await _context.TempServices.ToListAsync();
         }
         [HttpGet("service/{DBR_id}")]
-        public async Task<ActionResult<IEnumerable<BookingService>>> GetAllBookingService(int DBR_id)
+        public async Task<ActionResult<IEnumerable<DetailBookingService>>> GetAllBookingService(int DBR_id)
         {
+            var x = new List<DetailBookingService>();
             if (_context.BookingServices == null)
             {
-                return NotFound();
+                return x;
             }
-            var bookingService = await _context.BookingServices.Where(t => t.DBR_Id == DBR_id).ToListAsync();
-            List<DetailBookingService> list = new List<DetailBookingService>();
+            var bookingService = await _context.BookingServices.Where(d => d.DBR_Id == DBR_id)
+                                   .Select(d => d.BookingServiceId).ToListAsync();
             if (bookingService == null)
             {
-                return NotFound();
+                return x;
             }
             else
             {
-                foreach(var bookSV in bookingService)
-                {
-                    
-                }
+                var list = await _context.DetailBookingServices.Where(d => bookingService.Contains(d.BookingServiceId))
+                                       .ToListAsync();
+                return list;
             }
-
-            return bookingService;
         }
 
         [HttpPut("{id}")]
