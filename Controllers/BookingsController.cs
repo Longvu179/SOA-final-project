@@ -84,7 +84,7 @@ namespace MyHotel.Controllers
             }
         }
 
-        [HttpGet("room/availble")]
+        [HttpPost("room/availble")]
         public async Task<ActionResult<IEnumerable<Room>>> GetActiveRooms([FromBody] CheckIn_OutDate check)
         {
             var existingBooking = await _context.DetailBookingsRooms.Where(b =>

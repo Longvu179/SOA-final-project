@@ -53,6 +53,40 @@ namespace MyHotel.Controllers
             return staff;
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateStaff(int id, Staff staff)
+        {
+            if (id != staff.StaffId)
+            {
+                return BadRequest("Staff ID in the URL does not match the staff ID in the request body.");
+            }
+
+            _context.Entry(staff).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!StaffExists(id))
+                {
+                    return NotFound("Staff not found.");
+                }
+                else
+                {
+                    throw; // Handle the exception as needed, such as logging or returning an error response.
+                }
+            }
+
+            return NoContent();
+        }
+
+        private bool StaffExists(int id)
+        {
+            return _context.Staffs.Any(e => e.StaffId == id);
+        }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStaff(int id)
@@ -77,5 +111,7 @@ namespace MyHotel.Controllers
 
             return NoContent();
         }
+
     }
+
 }

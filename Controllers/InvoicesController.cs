@@ -21,7 +21,7 @@ namespace MyHotel.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<Invoice>>> GetInvoices()
         {
           if (_context.Invoices == null)
